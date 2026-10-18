@@ -57,9 +57,25 @@ cp apps/mobile/.env.example apps/mobile/.env.local   # then fill in your project
 cd apps/mobile && npx expo start
 ```
 
-Scan the QR code with **Expo Go** on Android or iPhone. Windows can't build iOS apps locally. For a standalone install, use EAS cloud builds: `npx eas-cli@latest build --platform ios|android`. iOS builds need an Apple Developer account.
+Scan the QR code with **Expo Go** on Android or iPhone. If the phone can't connect (for example on a work network), use `npx expo start --tunnel`.
 
-### 3. Check the AI against sample receipts
+### 3. Install a standalone Android app (APK)
+
+EAS builds the APK in the cloud, so you don't need Android Studio. `.env.local` is not uploaded, so the Supabase values go into the EAS `preview` environment instead. Run these from `apps/mobile`:
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest init
+npx eas-cli@latest env:set --environment preview --name EXPO_PUBLIC_SUPABASE_URL --value https://<ref>.supabase.co --visibility plaintext
+npx eas-cli@latest env:set --environment preview --name EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY --value sb_publishable_... --visibility plaintext
+npx eas-cli@latest build --platform android --profile preview
+```
+
+Open the link the build prints on your phone to download and install the APK. `eas init` and the first build add the project ID and Android package name to `app.json`, so commit that file afterwards.
+
+iOS builds need an Apple Developer account and use `--platform ios`. Windows can't build iOS apps locally.
+
+### 4. Check the AI against sample receipts
 
 ```bash
 ANTHROPIC_API_KEY=sk-ant-... npm run eval:receipts
