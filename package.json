@@ -1,0 +1,33 @@
+{
+  "name": "accounting-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal AI accountant: capture receipts and track tax-deductible expenses (ATO).",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "sync-core": "node scripts/sync-core.mjs",
+    "test:functions": "npm run sync-core && deno test --config supabase/functions/extract-receipt/deno.json --allow-env --allow-read supabase/functions",
+    "lint:functions": "deno lint --config supabase/functions/extract-receipt/deno.json supabase/functions",
+    "format:functions": "deno fmt --config supabase/functions/extract-receipt/deno.json supabase/functions/extract-receipt",
+    "eval:receipts": "npm run sync-core && deno run --config supabase/functions/extract-receipt/deno.json --allow-env --allow-read --allow-net supabase/functions/extract-receipt/eval/run-eval.ts",
+    "db:test": "supabase test db",
+    "functions:serve": "npm run sync-core && supabase functions serve --env-file supabase/functions/.env",
+    "functions:deploy": "npm run sync-core && supabase functions deploy extract-receipt"
+  },
+  "devDependencies": {
+    "deno": "^2.9.6",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~58.0.4",
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "prettier": "^3.9.10",
+    "supabase": "^2.121.0"
+  }
+}

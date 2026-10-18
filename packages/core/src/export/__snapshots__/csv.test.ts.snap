@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`expensesToCsv exports confirmed expenses for the year with headers 1`] = `
+"﻿Date,Financial year,Supplier,ABN,Description,Claim type,Category,Tax return label,Total (AUD),GST (AUD),Work use %,Deductible (AUD),Deduction method,Review notes,Your notes,Receipt file
+2026-07-01,2026–27,JB Hi-Fi,,"Laptop, mainly for work, ""Pro"" model",Work-related (employee),Other work-related expenses,D5,1800.00,,70,1260.00,depreciate,Part private use; Claimed over several years,Used 3 days a week at home,user-1/laptop.jpg
+2026-08-15,2026–27,Officeworks,51 824 753 556,USB-C cable to connect work laptop to office monitor.,Work-related (employee),Other work-related expenses,D5,25.00,2.27,100,25.00,immediate,,,user-1/expense-1.jpg
+"
+`;

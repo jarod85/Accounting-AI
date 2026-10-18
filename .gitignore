@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# test output
+coverage/
+
+# env files (never commit secrets)
+.env
+.env*.local
+supabase/functions/.env
+
+# generated copy of packages/core for the Deno Edge Function (see scripts/sync-core.mjs)
+supabase/functions/_shared/core/
+
+# Supabase local state
+supabase/.branches/
+supabase/.temp/
+
+# editors / OS
+.DS_Store
+*.log
