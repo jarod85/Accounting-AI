@@ -18,6 +18,7 @@
     "lint:functions": "deno lint --config supabase/functions/extract-receipt/deno.json supabase/functions",
     "format:functions": "deno fmt --config supabase/functions/extract-receipt/deno.json supabase/functions/extract-receipt",
     "eval:receipts": "npm run sync-core && deno run --config supabase/functions/extract-receipt/deno.json --allow-env --allow-read --allow-net supabase/functions/extract-receipt/eval/run-eval.ts",
+    "db:start": "npm run sync-core && supabase start",
     "db:test": "supabase test db",
     "functions:serve": "npm run sync-core && supabase functions serve --env-file supabase/functions/.env",
     "functions:deploy": "npm run sync-core && supabase functions deploy extract-receipt"

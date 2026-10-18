@@ -20,5 +20,5 @@ npm run format   # Prettier (TS workspaces); npm run format:functions for the De
 ```
 
 - When you change the prompt, AI schema or model, also run `npm run eval:receipts`. It needs `ANTHROPIC_API_KEY` and costs a few cents.
-- When you change the database, also run `npm run db:test`. It needs Docker and `npx supabase start`.
+- When you change the database, also run `npm run db:test`. It needs Docker and `npm run db:start` (which runs `sync-core` first, because `supabase start` also loads the Edge Function).
 - Never edit `supabase/functions/_shared/core/`. It is generated from `packages/core` by `npm run sync-core`.

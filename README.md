@@ -90,7 +90,7 @@ This runs real Claude API calls (a few cents each) on six synthetic receipts. Ea
 | Domain rules | `npm test -w @accounting-ai/core` | Money, financial years, ABN checksum, every ATO rule and flag, CSV export, schema/database drift |
 | Mobile app | `npm test -w @accounting-ai/mobile` | Screens with in-memory fake services: capture, review and confirm, list totals, export, settings, sign-in |
 | Edge Function | `npm run test:functions` | Request handling, auth and allowlist, Claude request shape, refusal / truncation / API error handling |
-| Database | `npm run db:test` (needs Docker) | Row level security between users, storage folder isolation, constraints, generated financial year |
+| Database | `npm run db:start`, then `npm run db:test` (needs Docker) | Row level security between users, storage folder isolation, constraints, generated financial year |
 | AI quality | `npm run eval:receipts` (costs money) | Real extraction accuracy on known receipts |
 
 ## How AI is used
