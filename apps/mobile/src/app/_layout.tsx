@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useColorScheme } from 'react-native';
 
 import { ErrorScreen } from '@/components/screen';
@@ -54,14 +54,20 @@ function SetupError({ message }: { message: string }) {
 function RootNavigator({ queryClient }: { queryClient: QueryClient }) {
   const { session, isLoading } = useSession();
   const userId = session?.userId ?? null;
+  const previousUserId = useRef(userId);
 
   useEffect(() => {
     if (!isLoading) void SplashScreen.hideAsync();
   }, [isLoading]);
 
-  // Never show one account's cached data to another.
+  // Never show one account's cached data to another: drop it when that account signs out.
+  // Not on sign-in, because the app's screens have already started loading by then, and
+  // clearing would cancel those requests and leave them loading forever.
   useEffect(() => {
-    queryClient.clear();
+    if (previousUserId.current !== null && previousUserId.current !== userId) {
+      queryClient.clear();
+    }
+    previousUserId.current = userId;
   }, [queryClient, userId]);
 
   if (isLoading) return null;
